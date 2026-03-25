@@ -48,3 +48,4 @@ skip-magic-trailing-comma = false
 
 [tool.mypy]
 disable_error_code = ["untyped-decorator"]
+disallow_subclassing_any = false
