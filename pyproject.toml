@@ -45,3 +45,6 @@ line-length = 100
 quote-style = "double"
 indent-style = "space"
 skip-magic-trailing-comma = false
+
+[tool.mypy]
+disable_error_code = ["untyped-decorator"]
