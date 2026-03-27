@@ -7,6 +7,8 @@ from sqlalchemy.ext.asyncio import async_sessionmaker
 
 
 class DbSessionMiddleware(BaseMiddleware):
+    """Middleware for database session management."""
+
     def __init__(self, session_pool: async_sessionmaker) -> None:
         self.session_pool = session_pool
 
