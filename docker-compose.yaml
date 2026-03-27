@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:18.1-trixie
+    container_name: db
+    restart: unless-stopped
+    env_file:
+      - app/config/envs/.env.postgres-prod
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/18/docker
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - my_network
+
+volumes:
+  pg_data:
+
+networks:
+  my_network:
+    driver: bridge
