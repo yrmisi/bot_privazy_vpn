@@ -4,14 +4,15 @@ import logging
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
-
-from config import settings
-from database import session_pool
 from handlers.default import echo_router, start_router
 from middlewares import DbSessionMiddleware
 
+from config import settings
+from database import session_pool
+
 
 async def main() -> None:
+    """Initialize dispatcher, setup middleware and routers, and start bot polling."""
 
     dp = Dispatcher()
 
