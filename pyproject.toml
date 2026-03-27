@@ -6,6 +6,8 @@ readme = "README.md"
 requires-python = ">=3.14.3"
 dependencies = [
     "aiogram>=3.26.0",
+    "alembic>=1.18.4",
+    "asyncpg>=0.31.0",
     "pydantic>=2.12.5",
     "pydantic-settings>=2.13.1",
     "sqlalchemy[asyncio]>=2.0.48",
@@ -23,7 +25,7 @@ dev = [
 profile = "black"
 line_length = 100
 src_paths  = ["bot"]
-known_first_party = ["bot"]
+known_first_party = ["bot", "database", "config"]
 known_third_party = ["aiogram", "sqlalchemy", "pydantic", "alembic"]
 
 
