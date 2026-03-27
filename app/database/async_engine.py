@@ -1,0 +1,28 @@
+from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
+
+from config import settings
+
+async_engine = create_async_engine(
+    url=settings.db.url_sqla_async,
+    echo=settings.db.sqla.echo,
+    pool_pre_ping=settings.db.sqla.pool_pre_ping,
+    pool_size=settings.db.sqla.pool_size,
+    max_overflow=settings.db.sqla.max_overflow,
+)
+
+session_pool = async_sessionmaker(
+    async_engine,
+    autoflush=settings.db.sp.autoflush,
+    expire_on_commit=settings.db.sp.expire_on_commit,
+    autocommit=settings.db.sp.autocommit,
+)
+
+
+async def on_startup() -> None:
+    """Initialize database connections on bot startup."""
+    await async_engine.connect()
+
+
+async def on_shutdown() -> None:
+    """Correct termination: closing the connection to the database."""
+    await async_engine.dispose()
