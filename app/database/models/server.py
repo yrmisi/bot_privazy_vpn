@@ -44,5 +44,5 @@ class Server(Base):
         nullable=False,
     )
 
-    protocol: Mapped["Protocol"] = relationship(back_populates="vpns")
+    protocol: Mapped["Protocol"] = relationship(back_populates="servers")
     users: Mapped[list["VpnSubscription"]] = relationship(back_populates="vpn")
