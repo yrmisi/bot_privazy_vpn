@@ -5,7 +5,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from handlers.default import echo_router, start_router
-from middlewares import DbSessionMiddleware
+from middlewares import DbSessionMiddleware, UserDataMiddleware
 
 from config import settings
 from database import session_pool
@@ -17,7 +17,7 @@ async def main() -> None:
     dp = Dispatcher()
 
     dp.update.middleware(DbSessionMiddleware(session_pool))
-
+    dp.message.middleware(UserDataMiddleware())
     dp.include_routers(
         start_router,
         echo_router,
