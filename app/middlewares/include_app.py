@@ -7,6 +7,8 @@ from .user_data import UserDataMiddleware
 
 
 async def include_middleware(dp: Dispatcher) -> None:
-    """ """
-    dp.update.middleware(DbSessionMiddleware(session_pool))
+    """
+    Register all application middlewares.
+    """
+    dp.update.outer_middleware(DbSessionMiddleware(session_pool))
     dp.message.middleware(UserDataMiddleware())
