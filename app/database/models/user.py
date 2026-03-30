@@ -11,14 +11,17 @@ if TYPE_CHECKING:
 
 
 class User(Base):
-    """Telegram bot User model."""
+    """
+    Telegram bot User model.
+    """
 
     telegram_id: Mapped[int] = mapped_column(
         BigInteger,
         unique=True,
         nullable=False,
+        index=True,
     )
-    full_name: Mapped[str] = mapped_column(
+    full_name: Mapped[str | None] = mapped_column(
         String(250),
         nullable=True,
         index=True,
@@ -38,13 +41,12 @@ class User(Base):
         default=False,
         nullable=False,
     )
-    free_period: Mapped[datetime] = mapped_column(
+    free_trial: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True),
-        nullable=False,
+        nullable=True,
     )
 
-    # отношение к VPN-подключениям
-    vpns: Mapped[list["VpnSubscription"]] = relationship(
+    subscriptions: Mapped[list["VpnSubscription"]] = relationship(
         back_populates="user",
         lazy="selectin",
     )
