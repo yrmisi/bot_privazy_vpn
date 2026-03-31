@@ -2,7 +2,7 @@ from collections.abc import Awaitable, Callable
 from typing import Any
 
 from aiogram import BaseMiddleware
-from aiogram.types import TelegramObject, Update, User
+from aiogram.types import Message, User
 
 from exceptions import UserNotFoundError
 from schemas import UserData
@@ -13,14 +13,12 @@ class UserDataMiddleware(BaseMiddleware):
 
     async def __call__(
         self,
-        handler: Callable[[TelegramObject, dict[str, Any]], Awaitable[Any]],
-        event: TelegramObject,
+        handler: Callable[[Message, dict[str, Any]], Awaitable[Any]],
+        event: Message,
         data: dict[str, Any],
     ) -> Any:
-        target = event
-        if isinstance(event, Update):
-            target = event.event
-        user: User | None = getattr(target, "from_user", None)
+        user: User | None = getattr(event, "from_user", None)
+
         if user is None:
             raise UserNotFoundError
 
