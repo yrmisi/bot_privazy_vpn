@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import datetime
 
 
 @dataclass
@@ -10,3 +11,4 @@ class UserData:
     is_bot: bool
     language_code: str
     is_premium: bool
+    free_trial: datetime
