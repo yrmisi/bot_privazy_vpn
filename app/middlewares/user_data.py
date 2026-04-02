@@ -1,9 +1,11 @@
 from collections.abc import Awaitable, Callable
+from datetime import datetime, timedelta
 from typing import Any
 
 from aiogram import BaseMiddleware
 from aiogram.types import Message, User
 
+from config import settings
 from exceptions import UserNotFoundError
 from schemas import UserData
 
@@ -28,5 +30,6 @@ class UserDataMiddleware(BaseMiddleware):
             is_bot=user.is_bot,
             language_code=user.language_code or "language not set",
             is_premium=user.is_premium or False,
+            free_trial=datetime.now() + timedelta(days=settings.bot.free_days),
         )
         return await handler(event, data)
