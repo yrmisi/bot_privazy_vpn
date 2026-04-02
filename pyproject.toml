@@ -24,8 +24,8 @@ dev = [
 # isort settings
 profile = "black"
 line_length = 100
-src_paths  = ["bot"]
-known_first_party = ["bot", "database", "config", "exceptions", "schemas", "handlers", "middlewares"]
+src_paths  = ["app"]
+known_first_party = ["database", "config", "exceptions", "schemas", "handlers", "middlewares"]
 known_third_party = ["aiogram", "sqlalchemy", "pydantic", "alembic"]
 
 
