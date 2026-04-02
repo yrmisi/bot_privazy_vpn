@@ -1,0 +1,67 @@
+{
+    "hello_unauth_user_text": [
+        "<b>Привет {full_name}!</b> 👋\n\n",
+        "🛡 🛡 Privazy VPN — включил и забыл.\n\n",
+        "🚀 Мгновенная активация\n✅ Гибкие тарифы\n",
+        "▶️ YouTube без рекламы\n"
+    ],
+    "hello_unauth_user_call_data": [
+        {
+            "text": "🆓 Пробные 3 дня",
+            "callback_data": "start_free",
+            "style": "success"
+        },
+        {
+            "text": "🥺👉Наш канал👈",
+            "callback_data": "start_channel",
+            "style": "primary"
+        },
+        {
+            "text": "🆘 Поддержка",
+            "callback_data": "start_support",
+            "style": "danger"
+        }
+    ],
+    "hello_auth_user_text": [
+        "⏰ <b>{full_name} Ваша подписка истекла!</b>\n\n",
+        "🛡 Продлите подписку на 🛡 Privazy VPN, чтобы продолжить пользоваться сервисом.\n\n",
+        "✅ Быстрое продление\n",
+        "💳 Удобные способы оплаты\n",
+        "🚀 Мгновенная активация\n\n",
+        "Нажмите кнопку '🎟 Продлить подписку', чтобы продолжить!"
+    ],
+    "hello_auth_user_call_data": [
+        {
+            "text": "🎟 Продлить подписку",
+            "callback_data": "start_subscription",
+            "style": "success"
+        },
+        {
+            "text": "📋 Инструкция",
+            "callback_data": "start_manual"
+        },
+        {
+            "text": "🎁 Бонусы",
+            "callback_data": "start_bonuses"
+        },
+        {
+            "text": "🥺👉Наш канал👈",
+            "callback_data": "start_channel",
+            "style": "primary"
+        },
+        {
+            "text": "ℹ️ О нас",
+            "callback_data": "start_info",
+            "style": "primary"
+        },
+        {
+            "text": "🆘 Поддержка",
+            "callback_data": "start_support",
+            "style": "danger"
+        }
+    ],
+    "successful_free_trial_text": [
+        "<b>Вы подписались!</b>\n\n",
+        "Ваш ключ доступа: <code>key_12345</code>"
+    ]
+}
