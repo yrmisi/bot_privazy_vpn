@@ -12,3 +12,4 @@ async def include_middleware(dp: Dispatcher) -> None:
     """
     dp.update.outer_middleware(DbSessionMiddleware(session_pool))
     dp.message.middleware(UserDataMiddleware())
+    dp.callback_query.middleware(UserDataMiddleware())
