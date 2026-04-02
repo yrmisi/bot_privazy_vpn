@@ -1,0 +1,55 @@
+from typing import Any
+
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from config import settings
+from core.i18n import translations_cache
+from database.models import User
+from repositories import UserVPNRepository
+from schemas import UserAnswer, UserData
+
+
+class UserVPNService:
+    """
+    Service for VPN server operations.
+    """
+
+    def __init__(self, session: AsyncSession) -> None:
+        self.repo = UserVPNRepository(session)
+
+    async def get_hello_user(
+        self,
+        user_data: UserData,
+    ) -> UserAnswer:
+        """
+        Get welcome message data for user.
+        """
+        user: User | None = await self.repo.get_by_id(user_data.telegram_id)
+        trans: dict[str, Any] = await self._get_trans_lang(user_data.language_code)
+
+        msg_data = settings.bot.msg_auth if user else settings.bot.msg_unauth
+
+        return UserAnswer(
+            text="".join(trans[msg_data.key_text]).format(full_name=user_data.full_name),
+            call_data=trans[msg_data.key_call_data],
+            rows_size=msg_data.rows_size,
+        )
+
+    async def activate_trial(
+        self,
+        user_data: UserData,
+    ) -> str:
+        """Activate free trial for user and return success message."""
+        await self.repo.add(user_data)
+        trans: dict[str, Any] = await self._get_trans_lang(user_data.language_code)
+
+        return "".join(trans["successful_free_trial_text"])
+
+    @staticmethod
+    async def _get_trans_lang(language: str) -> dict[str, Any]:
+        """
+        Select language code (ru or en).
+        """
+        lang: str = language if language == "ru" else "en"
+        trans: dict[str, Any] = translations_cache[lang]
+        return trans
