@@ -20,6 +20,7 @@ class MessageUserAuthConfig:
     key_text: str = "hello_auth_user_text"
     key_call_data: str = "hello_auth_user_call_data"
     rows_size: list[int] = [1, 2, 2, 1]
+    key_text_echo: str = "message_echo"
 
 
 class BotConfig(BaseSettings):

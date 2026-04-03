@@ -60,5 +60,9 @@
             "callback_data": "start_support",
             "style": "danger"
         }
+    ],
+    "message_echo": [
+        "🤔 I don't understand this command.\n\n",
+        "Use /start to open the main menu."
     ]
 }

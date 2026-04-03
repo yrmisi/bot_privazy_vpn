@@ -14,8 +14,9 @@ class UserVPNService:
     Service for VPN server operations.
     """
 
-    def __init__(self, session: AsyncSession) -> None:
-        self.repo = UserVPNRepository(session)
+    def __init__(self, session: AsyncSession | None = None) -> None:
+        if isinstance(session, AsyncSession):
+            self.repo: UserVPNRepository = UserVPNRepository(session)
 
     async def get_hello_user(
         self,
@@ -44,6 +45,18 @@ class UserVPNService:
         trans: dict[str, Any] = await self._get_trans_lang(user_data.language_code)
 
         return "".join(trans["successful_free_trial_text"])
+
+    @classmethod
+    async def get_message_echo(
+        cls,
+        lang: str,
+    ) -> str:
+        """
+        Return echo message text for the specified language.
+        """
+        trans: dict[str, Any] = await cls._get_trans_lang(lang)
+
+        return "".join(trans[settings.bot.msg_auth.key_text_echo])
 
     @staticmethod
     async def _get_trans_lang(language: str) -> dict[str, Any]:
