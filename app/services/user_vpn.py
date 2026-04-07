@@ -28,19 +28,28 @@ class UserVPNService:
         user: User | None = await self.repo.get_by_id(user_data.telegram_id)
         trans: dict[str, Any] = await self._get_trans_lang(user_data.language_code)
 
-        msg_data = settings.bot.msg_auth if user else settings.bot.msg_unauth
+        if user:
+            key_text: str = settings.msg.key_auth_text
+            key_call_data: str = settings.msg.key_auth_call_data
+            row_size: list[int] = settings.msg.auth_rows_size
+        else:
+            key_text = settings.msg.key_unauth_text
+            key_call_data = settings.msg.key_unauth_call_data
+            row_size = settings.msg.unauth_rows_size
 
         return UserAnswer(
-            text="".join(trans[msg_data.key_text]).format(full_name=user_data.full_name),
-            call_data=trans[msg_data.key_call_data],
-            rows_size=msg_data.rows_size,
+            text="".join(trans[key_text]).format(full_name=user_data.full_name),
+            call_data=trans[key_call_data],
+            rows_size=row_size,
         )
 
     async def activate_trial(
         self,
         user_data: UserData,
     ) -> str:
-        """Activate free trial for user and return success message."""
+        """
+        Activate free trial for user and return success message.
+        """
         await self.repo.add(user_data)
         trans: dict[str, Any] = await self._get_trans_lang(user_data.language_code)
 
@@ -56,7 +65,7 @@ class UserVPNService:
         """
         trans: dict[str, Any] = await cls._get_trans_lang(lang)
 
-        return "".join(trans[settings.bot.msg_auth.key_text_echo])
+        return "".join(trans[settings.msg.key_echo_text])
 
     @staticmethod
     async def _get_trans_lang(language: str) -> dict[str, Any]:
