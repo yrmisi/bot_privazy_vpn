@@ -12,23 +12,33 @@ if TYPE_CHECKING:
 
 
 class VpnSubscription(Base):
-    """User VPN subscription."""
+    """
+    User VPN subscription.
+    """
 
     __tablename__: str = "vpn_subscriptions"
 
     user_id: Mapped[UUID] = mapped_column(
         UUID,
-        ForeignKey("users.id"),
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
     )
-    vpn_id: Mapped[UUID] = mapped_column(
+    server_id: Mapped[UUID] = mapped_column(
         UUID,
-        ForeignKey("servers.id"),
+        ForeignKey("servers.id", ondelete="CASCADE"),
+        nullable=False,
     )
-    paid_before: Mapped[datetime] = mapped_column(DateTime)
+    paid_before: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     status: Mapped[bool] = mapped_column(
         Boolean,
         default=True,
     )
 
-    user: Mapped["User"] = relationship(back_populates="vpns")
-    vpn: Mapped["Server"] = relationship(back_populates="users")
+    user: Mapped["User"] = relationship(
+        back_populates="subscriptions",
+        lazy="selectin",
+    )
+    server: Mapped["Server"] = relationship(
+        back_populates="subscriptions",
+        lazy="selectin",
+    )

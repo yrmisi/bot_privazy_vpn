@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-from sqlalchemy import BigInteger, DateTime
+from sqlalchemy import BigInteger, Boolean, DateTime, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base
@@ -11,14 +11,42 @@ if TYPE_CHECKING:
 
 
 class User(Base):
-    """Telegram bot User model."""
+    """
+    Telegram bot User model.
+    """
 
     telegram_id: Mapped[int] = mapped_column(
         BigInteger,
         unique=True,
         nullable=False,
+        index=True,
     )
-    free_period: Mapped[datetime] = mapped_column(DateTime)
+    full_name: Mapped[str | None] = mapped_column(
+        String(250),
+        nullable=True,
+        index=True,
+    )
+    is_bot: Mapped[bool] = mapped_column(
+        Boolean,
+        default=False,
+        nullable=False,
+    )
+    language_code: Mapped[str | None] = mapped_column(
+        String(15),
+        nullable=True,
+        index=True,
+    )
+    is_premium: Mapped[bool] = mapped_column(
+        Boolean,
+        default=False,
+        nullable=False,
+    )
+    free_trial: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True),
+        nullable=True,
+    )
 
-    # отношение к VPN-подключениям
-    vpns: Mapped[list["VpnSubscription"]] = relationship(back_populates="user")
+    subscriptions: Mapped[list["VpnSubscription"]] = relationship(
+        back_populates="user",
+        lazy="selectin",
+    )

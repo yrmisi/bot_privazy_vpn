@@ -12,11 +12,14 @@ if TYPE_CHECKING:
 
 # VPN-сервера например Нидерланды #1 или Германия #123
 class Server(Base):
-    """VPN server model."""
+    """
+    VPN server model.
+    """
 
     protocol_id: Mapped[UUID] = mapped_column(
         UUID,
-        ForeignKey("protocols.id"),
+        ForeignKey("protocols.id", ondelete="RESTRICT"),
+        nullable=False,
     )
     name: Mapped[str] = mapped_column(
         String(125),
@@ -44,5 +47,11 @@ class Server(Base):
         nullable=False,
     )
 
-    protocol: Mapped["Protocol"] = relationship(back_populates="vpns")
-    users: Mapped[list["VpnSubscription"]] = relationship(back_populates="vpn")
+    protocol: Mapped["Protocol"] = relationship(
+        back_populates="servers",
+        lazy="selectin",
+    )
+    subscriptions: Mapped[list["VpnSubscription"]] = relationship(
+        back_populates="server",
+        lazy="selectin",
+    )

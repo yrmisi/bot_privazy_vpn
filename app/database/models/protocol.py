@@ -13,9 +13,13 @@ class Protocol(Base):
     """Model representing a VPN protocol (e.g., VLESS, Shadowsocks, OpenVPN, WireGuard)."""
 
     name: Mapped[str] = mapped_column(
-        String(25),
+        String(64),
+        unique=True,
         nullable=False,
     )
 
     # отношение к VPN-серверам
-    vpns: Mapped[list["Server"]] = relationship(back_populates="protocol")
+    servers: Mapped[list["Server"]] = relationship(
+        back_populates="protocol",
+        lazy="selectin",
+    )

@@ -1,0 +1,68 @@
+{
+    "hello_unauth_user_text": [
+        "<b>Hello {full_name}!</b> 👋\n\n",
+        "🛡 🛡 Privazy VPN — turn it on and forget about it.\n\n",
+        "🚀 Instant activation\n",
+        "✅ Flexible tariffs\n",
+        "▶️ YouTube no ads\n"
+    ],
+    "hello_unauth_user_call_data": [
+        {
+            "text": "🆓 3-day trial",
+            "callback_data": "start_free",
+            "style": "success"
+        },
+        {
+            "text": "🥺👉Our channel👈",
+            "callback_data": "start_channel",
+            "style": "primary"
+        },
+        {
+            "text": "🆘 Support",
+            "callback_data": "start_support",
+            "style": "danger"
+        }
+    ],
+    "hello_auth_user_text": [
+        "⏰ <b>{full_name} Your subscription has expired!</b>\n\n",
+        "🛡 Renew your 🛡 Privazy VPN subscription to continue using the service.\n\n",
+        "✅ Quick renewal\n",
+        "💳 Convenient payment methods\n",
+        "🚀 Instant activation\n\n",
+        "Click the button '🎟 Renew your subscription', to continue!"
+    ],
+    "hello_auth_user_call_data": [
+        {
+            "text": "🎟 Renew your subscription",
+            "callback_data": "start_subscription",
+            "style": "success"
+        },
+        {
+            "text": "📋 Instructions",
+            "callback_data": "start_manual"
+        },
+        {
+            "text": "🎁 Bonuses",
+            "callback_data": "start_bonuses"
+        },
+        {
+            "text": "🥺👉Our channel👈",
+            "callback_data": "start_channel",
+            "style": "primary"
+        },
+        {
+            "text": "ℹ️ About Us",
+            "callback_data": "start_info",
+            "style": "primary"
+        },
+        {
+            "text": "🆘 Support",
+            "callback_data": "start_support",
+            "style": "danger"
+        }
+    ],
+    "message_echo": [
+        "🤔 I don't understand this command.\n\n",
+        "Use /start to open the main menu."
+    ]
+}

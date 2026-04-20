@@ -2,6 +2,7 @@ from pydantic import BaseModel
 
 from .bot import BotConfig
 from .database import DatabaseConfig
+from .message_callback_data import MessageCallbackConfig
 
 
 class Settings(BaseModel):
@@ -9,6 +10,7 @@ class Settings(BaseModel):
 
     bot: BotConfig = BotConfig()
     db: DatabaseConfig = DatabaseConfig()
+    msg: MessageCallbackConfig = MessageCallbackConfig()
 
 
 settings = Settings()

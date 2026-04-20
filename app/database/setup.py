@@ -16,13 +16,3 @@ session_pool = async_sessionmaker(
     expire_on_commit=settings.db.sp.expire_on_commit,
     autocommit=settings.db.sp.autocommit,
 )
-
-
-async def on_startup() -> None:
-    """Initialize database connections on bot startup."""
-    await async_engine.connect()
-
-
-async def on_shutdown() -> None:
-    """Correct termination: closing the connection to the database."""
-    await async_engine.dispose()
