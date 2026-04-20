@@ -20,5 +20,8 @@ async def on_shutdown(bot: Bot) -> None:
     Correct termination: closing the connection.
     """
     if settings.bot.session:
+        logging.info("Closing aiohttp session.")
         await settings.bot.session.close()
+
+    logging.info("Closing database connection.")
     await async_engine.dispose()
